@@ -1,3 +1,7 @@
 from django.db import models
 
-# Create your models here.
+from authentication import AuthUser
+
+
+class TwitterUser(models.Model):
+    AuthUser = models.OneToOneField(AuthUser)

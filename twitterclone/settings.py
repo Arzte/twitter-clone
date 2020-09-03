@@ -123,4 +123,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # App specific configuration
-AUTH_USER_MODEL = 'twitteruser.twitteruser'
+AUTH_USER_MODEL = 'authenticate.AuthUser'
