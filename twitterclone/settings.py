@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'tweet',
     'authentication',
     'notification',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -123,4 +124,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # App specific configuration
-AUTH_USER_MODEL = 'authenticate.AuthUser'
+AUTH_USER_MODEL = 'twitteruser.TwitterUser'
+
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

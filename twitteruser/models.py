@@ -1,7 +1,6 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from authentication import AuthUser
 
-
-class TwitterUser(models.Model):
-    AuthUser = models.OneToOneField(AuthUser)
+class TwitterUser(AbstractUser):
+    pass
