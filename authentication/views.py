@@ -5,7 +5,7 @@ from django.shortcuts import HttpResponseRedirect
 from django.shortcuts import render
 from django.shortcuts import reverse
 
-from authentication.form import LoginForm
+from authentication.forms import LoginForm
 
 
 def login_view(request):
