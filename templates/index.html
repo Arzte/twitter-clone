@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block content %}
+    <h3>Welcome {{ display_name }}!!</h3>
+    <a href="{% url 'create_tweet' %}">Create a new tweet</a>
+    <br>
+    <a href="{% url 'user_detail' username=request.user.username %}">Go to your profile</a>
+    <br>
+    <br>
+    {% for tweet in timeline %}
+        <div class="card">
+            <div class="card-body" style="width: 16rem;">
+                <h5 class="card-title"><a href="{% url 'user_detail' username=tweet.author.username %}">{{ tweet.author.username }}</a></h4>
+                <p class="card-text">{{ tweet.text }}</p>
+                <a class="card-link" href="{% url 'tweet_detail' tweet_id=tweet.id %}">Direct Link</a>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

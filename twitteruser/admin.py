@@ -3,4 +3,13 @@ from django.contrib.auth.admin import UserAdmin
 
 from twitteruser.models import TwitterUser
 
-admin.site.register(TwitterUser, UserAdmin)
+
+class MyUserAdmin(UserAdmin):
+    model = TwitterUser
+
+    fieldsets = UserAdmin.fieldsets + (
+        (None, {'fields': ('following', 'followers',)}),
+    )
+
+
+admin.site.register(TwitterUser, MyUserAdmin)

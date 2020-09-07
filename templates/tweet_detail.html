@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ display_name }}'s tweet{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title"><a href="{% url 'user_detail' username=tweet.author.username %}">{{ display_name }}</a></h5>
+            <p class="card-text">{{ tweet.text }}</p>
+        </div>
+    </div>
+{% endblock %}

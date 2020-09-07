@@ -6,6 +6,8 @@ from django.shortcuts import render
 from django.shortcuts import reverse
 
 from authentication.forms import LoginForm
+from authentication.forms import SignupForm
+from twitteruser.models import TwitterUser
 
 
 def login_view(request):
@@ -28,3 +30,17 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse('login_view'))
+
+
+def signup_view(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            logout(request)
+            user = form.save()
+            login(request, user)
+
+            return HttpResponseRedirect(reverse('homepage'))
+
+    form = SignupForm()
+    return render(request, 'generic_form.html', {'form': form})

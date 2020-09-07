@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.name }}{% endblock %}
+
+{% block content %}
+    <h2>{{ display_name }} ({{ user.username }})</h2>
+    <a href="{% url 'follow_user' username=user.username %}">
+        {% if following %}
+            UnFollow
+        {% else %}
+            Follow
+        {% endif %}
+        {{user.username}}</a>
+    <br>
+    <br>
+    <h4>Tweets: {{ tweet_count }}</h4>
+    <h4>Following: {{ following_count }}</h4>
+{% endblock %}
