@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ request.user.name }}'s notifications{% endblock %}
+
+
+{% block content %}
+    <h2>Notifications</h2>
+    <br>
+    {% if notifications %}
+        {% for notification in notifications %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'tweet_detail' tweet_id=notification.tweet.id %}">{{ notification.mentioned_by }}</a></h5>
+                    <p class="card-text">{{ notification.tweet.text }}</p>
+                </div>
+            </div>
+            <br>
+        {% endfor %}
+    {% else %}
+        <h4>No notifications right now..</h4>
+    {% endif %}
+{% endblock content %}

@@ -8,6 +8,8 @@
     <br>
     <a href="{% url 'user_detail' username=request.user.username %}">Go to your profile</a>
     <br>
+    <a href="{% url 'notifications' %}">Notifications</a>
+    <br>
     <br>
     {% for tweet in timeline %}
         <div class="card">
