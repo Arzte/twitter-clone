@@ -4,14 +4,22 @@ from django.contrib.auth import logout
 from django.shortcuts import HttpResponseRedirect
 from django.shortcuts import render
 from django.shortcuts import reverse
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+from django.views.generic import View
 
 from authentication.forms import LoginForm
 from authentication.forms import SignupForm
-from twitteruser.models import TwitterUser
 
 
-def login_view(request):
-    if request.method == 'POST':
+class LoginView(View):
+    template_name = 'generic_form.html'
+
+    def get(self, request):
+        form = LoginForm()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
         data = request.POST
         user = authenticate(
             request,
@@ -22,25 +30,20 @@ def login_view(request):
             return HttpResponseRedirect(
                 request.GET.get('next', reverse('homepage'))
             )
-
-    form = LoginForm()
-    return render(request, 'generic_form.html', {'form': form})
+        form = LoginForm()
+        return render(request, self.template_name, {'form': form})
 
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse('login_view'))
+    return HttpResponseRedirect(reverse('login'))
 
 
-def signup_view(request):
-    if request.method == 'POST':
-        form = SignupForm(request.POST)
-        if form.is_valid():
-            logout(request)
-            user = form.save()
-            login(request, user)
+class SignupView(CreateView):
+    template_name = 'generic_form.html'
+    form_class = SignupForm
+    success_url = reverse_lazy('homepage')
 
-            return HttpResponseRedirect(reverse('homepage'))
-
-    form = SignupForm()
-    return render(request, 'generic_form.html', {'form': form})
+    def form_valid(self, form):
+        login(self.request, form.save())
+        return super().form_valid(form)

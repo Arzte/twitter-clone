@@ -16,25 +16,26 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from authentication.views import login_view
+from authentication.views import LoginView
 from authentication.views import logout_view
-from authentication.views import signup_view
+from authentication.views import SignupView
 from notification.views import notifications_view
-from tweet.views import create_tweet_view
-from tweet.views import tweet_detail_view
+from tweet.views import CreateTweetView
+from tweet.views import TweetDetailView
 from twitteruser.views import follow_user_view
 from twitteruser.views import index_view
 from twitteruser.views import user_detail_view
 
 urlpatterns = [
-    path('login/', login_view, name='login'),
+    path('login/', LoginView.as_view(), name='login'),
     path('logout/', logout_view, name='logout'),
-    path('signup/', signup_view, name='signup'),
+    path('signup/', SignupView.as_view(), name='signup'),
     path('', index_view, name='homepage'),
     path('user/<str:username>/', user_detail_view, name='user_detail'),
     path('user/<str:username>/follow/', follow_user_view, name='follow_user'),
-    path('tweet/<int:tweet_id>/', tweet_detail_view, name='tweet_detail'),
-    path('tweet/new/', create_tweet_view, name='create_tweet'),
+    path('tweet/<int:tweet_id>/',
+         TweetDetailView.as_view(), name='tweet_detail'),
+    path('tweet/new/', CreateTweetView.as_view(), name='create_tweet'),
     path('notifications/', notifications_view, name='notifications'),
     path('admin/', admin.site.urls),
 ]
